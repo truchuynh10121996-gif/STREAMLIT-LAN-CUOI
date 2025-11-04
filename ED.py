@@ -530,18 +530,49 @@ div[data-testid="stFileUploader"]:hover {
     box-shadow: 0 5px 20px rgba(255, 179, 198, 0.3);
 }
 
+/* Nút Browse files - Làm rõ màu sắc */
+div[data-testid="stFileUploader"] button {
+    background: #ffffff !important;
+    color: #ff6b9d !important;
+    border: 2px solid #ff6b9d !important;
+    border-radius: 8px !important;
+    padding: 8px 20px !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+}
+
+div[data-testid="stFileUploader"] button:hover {
+    background: #ff6b9d !important;
+    color: #ffffff !important;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3) !important;
+}
+
+div[data-testid="stFileUploader"] label {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
 /* ========== TABS PREMIUM DESIGN ========== */
+/* Container cho tabs - cho phép wrap */
+div[data-testid="stTabs"] > div[data-baseweb="tab-list"] {
+    flex-wrap: wrap !important;
+    gap: 8px 8px !important;
+}
+
 button[data-testid="stTab"] {
     background: linear-gradient(135deg, #ffffff 0%, #fff5f7 100%);
     border: 2px solid #ffd4dd;
     border-radius: 12px 12px 0 0 !important;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     font-weight: 700;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #4a5568;
-    padding: 15px 30px;
-    margin-right: 8px;
+    padding: 12px 20px;
+    margin-right: 4px;
+    margin-bottom: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    white-space: nowrap;
 }
 
 button[data-testid="stTab"]:hover {
@@ -1342,26 +1373,8 @@ except Exception:
 # SIDEBAR - HƯỚNG DẪN VÀ UPLOAD FILE
 # ========================================
 
-# Thêm header rõ ràng cho sidebar
-st.sidebar.markdown("""
-<div style='
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    border-left: 4px solid #ffb3c6;
-'>
-    <h3 style='color: #ffffff; margin: 0; font-size: 18px;'>
-        📁 TẢI DỮ LIỆU HUẤN LUYỆN
-    </h3>
-    <p style='color: #e8f4f8; margin: 8px 0 0 0; font-size: 13px;'>
-        Tải file CSV để xây dựng mô hình dự báo
-    </p>
-</div>
-""", unsafe_allow_html=True)
-
 # Upload file
-uploaded_file = st.sidebar.file_uploader("📂 Tải CSV Dữ liệu Huấn luyện", type=['csv'], label_visibility="collapsed")
+uploaded_file = st.sidebar.file_uploader("📂 Tải CSV Dữ liệu Huấn luyện", type=['csv'])
 if uploaded_file is not None:
     df = pd.read_csv(uploaded_file, encoding='latin-1')
     MODEL_COLS = [f"X_{i}" for i in range(1, 15)]
@@ -1371,8 +1384,9 @@ if uploaded_file is not None:
 # THAY ĐỔI 4: Vị trí Tabs được giữ nguyên, CSS mới sẽ đảm bảo Tabs có màu
 # Tab mới: Dashboard tài chính doanh nghiệp (GSO) và Tin tức tài chính
 # ------------------------------------------------------------------------------------------------
-tab_predict, tab_dashboard, tab_news, tab_authors, tab_build, tab_goal = st.tabs([
+tab_predict, tab_scenario, tab_dashboard, tab_news, tab_authors, tab_build, tab_goal = st.tabs([
     "🚀 Sử dụng mô hình dự báo",
+    "⚠️ Mô phỏng kịch bản xấu",
     "📊 Dashboard tài chính doanh nghiệp",
     "📰 Tin tức tài chính",
     "👥 Nhóm tác giả",
@@ -2073,28 +2087,28 @@ with tab_predict:
             <div style='
                 background: {bg_color};
                 border: 2px solid {border_color};
-                border-radius: 15px;
-                padding: 25px;
+                border-radius: 12px;
+                padding: 15px;
                 text-align: center;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-                margin: 15px 0;
+                box-shadow: 0 3px 8px rgba(0, 0, 0, 0.06);
+                margin: 10px 0;
             '>
-                <div style='font-size: 16px; font-weight: 600; color: {text_color}; margin-bottom: 12px;'>
+                <div style='font-size: 13px; font-weight: 600; color: {text_color}; margin-bottom: 8px;'>
                     🏆 XÁC SUẤT VỠ NỢ (PD) - STACKING MODEL
                 </div>
-                <div style='font-size: 42px; font-weight: 800; color: {text_color}; margin: 15px 0;'>
+                <div style='font-size: 32px; font-weight: 800; color: {text_color}; margin: 10px 0;'>
                     {pd_value_stacking}
                 </div>
-                <div style='font-size: 20px; font-weight: 600; color: {text_color}; margin: 8px 0;'>
+                <div style='font-size: 16px; font-weight: 600; color: {text_color}; margin: 6px 0;'>
                     Rating: {pd_classification['rating']}
                 </div>
-                <div style='font-size: 17px; font-weight: 500; color: {text_color}; background: rgba(0,0,0,0.03); padding: 8px; border-radius: 8px; margin: 8px 0;'>
+                <div style='font-size: 14px; font-weight: 500; color: {text_color}; background: rgba(0,0,0,0.03); padding: 6px; border-radius: 6px; margin: 6px 0;'>
                     {pd_classification['classification']} ({pd_classification['range']})
                 </div>
-                <div style='font-size: 14px; color: {text_color}; margin-top: 8px; font-style: italic; opacity: 0.9;'>
+                <div style='font-size: 12px; color: {text_color}; margin-top: 6px; font-style: italic; opacity: 0.9;'>
                     📊 {pd_classification['meaning']}
                 </div>
-                <div style='font-size: 12px; color: {text_color}; margin-top: 12px; font-style: italic; opacity: 0.8;'>
+                <div style='font-size: 11px; color: {text_color}; margin-top: 8px; font-style: italic; opacity: 0.8;'>
                     💡 AI sử dụng kết quả này để phân tích và đề xuất quyết định tín dụng
                 </div>
             </div>
@@ -2406,6 +2420,416 @@ with tab_predict:
 
     else:
         st.info("Hãy tải **ho_so_dn.xlsx** (đủ 3 sheet) để tính X1…X14, dự báo PD và phân tích AI.")
+
+# ========================================
+# TAB: MÔ PHỎNG KỊCH BẢN XẤU
+# ========================================
+with tab_scenario:
+    st.header("⚠️ Mô phỏng Kịch bản Xấu - Stress Testing")
+    st.markdown("""
+    Mô phỏng tác động của các kịch bản kinh tế bất lợi đến khả năng thanh toán của doanh nghiệp.
+    Công cụ này giúp đánh giá khả năng chống chịu rủi ro và dự báo PD trong điều kiện khó khăn.
+    """)
+
+    st.divider()
+
+    # Hướng dẫn sử dụng
+    with st.expander("📖 Hướng dẫn sử dụng"):
+        st.markdown("""
+        **Cách sử dụng:**
+        1. 📁 **Tải file Excel**: Upload file chứa 14 chỉ số tài chính của doanh nghiệp
+        2. 🎯 **Chọn kịch bản**: Chọn mức độ khủng hoảng hoặc tùy chỉnh các tham số
+        3. 🔍 **Mô phỏng**: Hệ thống tính toán PD mới dựa trên kịch bản xấu
+        4. 📊 **Phân tích**: Xem so sánh PD trước/sau và phân tích AI chuyên sâu
+
+        **Lưu ý**: Kết quả mô phỏng dựa trên giả định các chỉ số tài chính thay đổi theo tỷ lệ đã chọn.
+        """)
+
+    st.divider()
+
+    # 1. Upload file dữ liệu
+    st.markdown("### 1️⃣ Tải dữ liệu doanh nghiệp")
+
+    uploaded_scenario_file = st.file_uploader(
+        "📂 Tải file Excel chứa 14 chỉ số tài chính",
+        type=["xlsx"],
+        key="scenario_file",
+        help="File Excel cần có 3 sheet: 'Balance Sheet', 'Income Statement', 'Cash Flow'"
+    )
+
+    if uploaded_scenario_file is not None:
+        try:
+            # Đọc file và tính toán 14 chỉ số (sử dụng logic có sẵn)
+            import openpyxl
+
+            # Đọc 3 sheet
+            bs_df = pd.read_excel(uploaded_scenario_file, sheet_name='Balance Sheet', header=None)
+            is_df = pd.read_excel(uploaded_scenario_file, sheet_name='Income Statement', header=None)
+            cf_df = pd.read_excel(uploaded_scenario_file, sheet_name='Cash Flow', header=None)
+
+            # Hàm tính toán 14 chỉ số (giống logic trong tab_predict)
+            def calculate_14_ratios(bs_df, is_df, cf_df):
+                """Tính toán 14 chỉ số tài chính từ 3 báo cáo"""
+                try:
+                    # Extract values from Balance Sheet
+                    total_assets = bs_df.iloc[bs_df[bs_df[0].str.contains('Tổng tài sản|Total assets', na=False, case=False)].index[0], 1]
+                    current_assets = bs_df.iloc[bs_df[bs_df[0].str.contains('Tài sản ngắn hạn|Current assets', na=False, case=False)].index[0], 1]
+                    cash = bs_df.iloc[bs_df[bs_df[0].str.contains('Tiền|Cash', na=False, case=False)].index[0], 1]
+                    inventory = bs_df.iloc[bs_df[bs_df[0].str.contains('Hàng tồn kho|Inventory', na=False, case=False)].index[0], 1]
+                    receivables = bs_df.iloc[bs_df[bs_df[0].str.contains('Phải thu|Receivables', na=False, case=False)].index[0], 1]
+
+                    total_liabilities = bs_df.iloc[bs_df[bs_df[0].str.contains('Tổng nợ|Total liabilities', na=False, case=False)].index[0], 1]
+                    current_liabilities = bs_df.iloc[bs_df[bs_df[0].str.contains('Nợ ngắn hạn|Current liabilities', na=False, case=False)].index[0], 1]
+                    equity = bs_df.iloc[bs_df[bs_df[0].str.contains('Vốn chủ sở hữu|Equity', na=False, case=False)].index[0], 1]
+
+                    # Extract values from Income Statement
+                    revenue = is_df.iloc[is_df[is_df[0].str.contains('Doanh thu|Revenue', na=False, case=False)].index[0], 1]
+                    gross_profit = is_df.iloc[is_df[is_df[0].str.contains('Lợi nhuận gộp|Gross profit', na=False, case=False)].index[0], 1]
+                    operating_profit = is_df.iloc[is_df[is_df[0].str.contains('Lợi nhuận hoạt động|Operating profit', na=False, case=False)].index[0], 1]
+                    net_income = is_df.iloc[is_df[is_df[0].str.contains('Lợi nhuận sau thuế|Net income', na=False, case=False)].index[0], 1]
+                    interest_expense = is_df.iloc[is_df[is_df[0].str.contains('Chi phí lãi vay|Interest expense', na=False, case=False)].index[0], 1]
+
+                    # Extract values from Cash Flow
+                    operating_cf = cf_df.iloc[cf_df[cf_df[0].str.contains('Lưu chuyển tiền từ hoạt động kinh doanh|Operating cash flow', na=False, case=False)].index[0], 1]
+
+                    # Calculate 14 ratios
+                    ratios = {}
+                    ratios['X_1'] = current_assets / current_liabilities if current_liabilities != 0 else 0  # Current Ratio
+                    ratios['X_2'] = (current_assets - inventory) / current_liabilities if current_liabilities != 0 else 0  # Quick Ratio
+                    ratios['X_3'] = cash / current_liabilities if current_liabilities != 0 else 0  # Cash Ratio
+                    ratios['X_4'] = total_liabilities / equity if equity != 0 else 0  # Debt to Equity
+                    ratios['X_5'] = total_liabilities / total_assets if total_assets != 0 else 0  # Debt Ratio
+                    ratios['X_6'] = (revenue * 365) / receivables if receivables != 0 else 0  # Receivables Turnover
+                    ratios['X_7'] = (revenue / inventory) if inventory != 0 else 0  # Inventory Turnover
+                    ratios['X_8'] = revenue / total_assets if total_assets != 0 else 0  # Asset Turnover
+                    ratios['X_9'] = gross_profit / revenue if revenue != 0 else 0  # Gross Profit Margin
+                    ratios['X_10'] = operating_profit / revenue if revenue != 0 else 0  # Operating Profit Margin
+                    ratios['X_11'] = net_income / revenue if revenue != 0 else 0  # Net Profit Margin
+                    ratios['X_12'] = net_income / total_assets if total_assets != 0 else 0  # ROA
+                    ratios['X_13'] = net_income / equity if equity != 0 else 0  # ROE
+                    ratios['X_14'] = operating_cf / current_liabilities if current_liabilities != 0 else 0  # Operating CF Ratio
+
+                    return ratios
+                except Exception as e:
+                    st.error(f"Lỗi khi tính toán chỉ số: {str(e)}")
+                    return None
+
+            # Tính toán 14 chỉ số gốc
+            original_ratios = calculate_14_ratios(bs_df, is_df, cf_df)
+
+            if original_ratios is not None:
+                st.success("✅ Đã tải và tính toán 14 chỉ số tài chính thành công!")
+
+                # Hiển thị chỉ số gốc
+                with st.expander("📊 Xem 14 chỉ số tài chính gốc"):
+                    ratio_names = {
+                        'X_1': 'Current Ratio (Khả năng thanh toán hiện hành)',
+                        'X_2': 'Quick Ratio (Khả năng thanh toán nhanh)',
+                        'X_3': 'Cash Ratio (Khả năng thanh toán tiền mặt)',
+                        'X_4': 'Debt to Equity (Nợ/Vốn chủ sở hữu)',
+                        'X_5': 'Debt Ratio (Tỷ lệ nợ)',
+                        'X_6': 'Receivables Turnover (Vòng quay khoản phải thu)',
+                        'X_7': 'Inventory Turnover (Vòng quay hàng tồn kho)',
+                        'X_8': 'Asset Turnover (Vòng quay tài sản)',
+                        'X_9': 'Gross Profit Margin (Biên lợi nhuận gộp)',
+                        'X_10': 'Operating Profit Margin (Biên lợi nhuận hoạt động)',
+                        'X_11': 'Net Profit Margin (Biên lợi nhuận ròng)',
+                        'X_12': 'ROA (Lợi nhuận/Tổng tài sản)',
+                        'X_13': 'ROE (Lợi nhuận/Vốn chủ sở hữu)',
+                        'X_14': 'Operating CF Ratio (Tỷ lệ lưu chuyển tiền hoạt động)'
+                    }
+
+                    ratio_df = pd.DataFrame({
+                        'Chỉ số': [ratio_names[k] for k in original_ratios.keys()],
+                        'Giá trị': [f"{v:.4f}" for v in original_ratios.values()]
+                    })
+                    st.dataframe(ratio_df, use_container_width=True)
+
+                # Dự báo PD gốc
+                X_original = pd.DataFrame([original_ratios])
+                probs_original = model.predict_proba(X_original)[0][1]
+                pd_classification_original = classify_pd(probs_original)
+
+                st.markdown("### 2️⃣ PD ban đầu (trước khi áp dụng kịch bản xấu)")
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric("PD gốc", f"{probs_original:.2%}", help="Xác suất vỡ nợ hiện tại")
+                with col2:
+                    st.metric("Rating", pd_classification_original['rating'])
+                with col3:
+                    st.metric("Phân loại", pd_classification_original['classification'])
+
+                st.divider()
+
+                # 2. Chọn kịch bản
+                st.markdown("### 3️⃣ Chọn kịch bản xấu")
+
+                scenario_type = st.selectbox(
+                    "Mức độ kịch bản:",
+                    ["Biến động nhẹ", "Suy giảm kinh tế", "Khủng hoảng ngành", "Tùy chỉnh"],
+                    help="Chọn mức độ khủng hoảng để mô phỏng"
+                )
+
+                # Định nghĩa các kịch bản
+                scenarios = {
+                    "Biến động nhẹ": {
+                        "roa_roe": -5,
+                        "debt_equity": 5,
+                        "liquidity": -5,
+                        "revenue_profit": -10,
+                        "interest": 5
+                    },
+                    "Suy giảm kinh tế": {
+                        "roa_roe": -15,
+                        "debt_equity": 15,
+                        "liquidity": -10,
+                        "revenue_profit": -20,
+                        "interest": 15
+                    },
+                    "Khủng hoảng ngành": {
+                        "roa_roe": -30,
+                        "debt_equity": 30,
+                        "liquidity": -20,
+                        "revenue_profit": -35,
+                        "interest": 30
+                    }
+                }
+
+                # Hiển thị hoặc cho phép tùy chỉnh
+                if scenario_type == "Tùy chỉnh":
+                    st.markdown("#### Tùy chỉnh tỷ lệ thay đổi (%)")
+
+                    col1, col2 = st.columns(2)
+                    with col1:
+                        roa_roe_change = st.slider("ROA/ROE thay đổi (%)", -50, 50, -15, help="Âm = giảm, Dương = tăng")
+                        debt_equity_change = st.slider("Nợ/VCSH thay đổi (%)", -50, 50, 15)
+                        liquidity_change = st.slider("Khả năng thanh toán (CR/QR) thay đổi (%)", -50, 50, -10)
+
+                    with col2:
+                        revenue_profit_change = st.slider("Doanh thu/Lợi nhuận gộp thay đổi (%)", -50, 50, -20)
+                        interest_change = st.slider("Chi phí lãi vay thay đổi (%)", -50, 50, 15)
+
+                    scenario_params = {
+                        "roa_roe": roa_roe_change,
+                        "debt_equity": debt_equity_change,
+                        "liquidity": liquidity_change,
+                        "revenue_profit": revenue_profit_change,
+                        "interest": interest_change
+                    }
+                else:
+                    scenario_params = scenarios[scenario_type]
+
+                    # Hiển thị thông số kịch bản
+                    st.markdown("#### Thông số kịch bản:")
+                    param_df = pd.DataFrame({
+                        'Yếu tố': ['ROA/ROE', 'Nợ/VCSH', 'Khả năng thanh toán (CR/QR)', 'Doanh thu/LN gộp', 'Chi phí lãi vay'],
+                        'Thay đổi (%)': [f"{scenario_params['roa_roe']:+.0f}%",
+                                        f"{scenario_params['debt_equity']:+.0f}%",
+                                        f"{scenario_params['liquidity']:+.0f}%",
+                                        f"{scenario_params['revenue_profit']:+.0f}%",
+                                        f"{scenario_params['interest']:+.0f}%"]
+                    })
+                    st.dataframe(param_df, use_container_width=True, hide_index=True)
+
+                st.divider()
+
+                # 3. Nút mô phỏng
+                if st.button("🔍 Mô phỏng kịch bản", type="primary", use_container_width=True):
+                    with st.spinner("Đang mô phỏng kịch bản xấu..."):
+                        # Tạo bản sao và áp dụng thay đổi
+                        stressed_ratios = original_ratios.copy()
+
+                        # Áp dụng thay đổi theo nhóm
+                        # 1. ROA/ROE (X_12, X_13)
+                        stressed_ratios['X_12'] *= (1 + scenario_params['roa_roe'] / 100)
+                        stressed_ratios['X_13'] *= (1 + scenario_params['roa_roe'] / 100)
+
+                        # 2. Nợ/VCSH (X_4)
+                        stressed_ratios['X_4'] *= (1 + scenario_params['debt_equity'] / 100)
+
+                        # 3. Khả năng thanh toán (X_1, X_2, X_3)
+                        stressed_ratios['X_1'] *= (1 + scenario_params['liquidity'] / 100)
+                        stressed_ratios['X_2'] *= (1 + scenario_params['liquidity'] / 100)
+                        stressed_ratios['X_3'] *= (1 + scenario_params['liquidity'] / 100)
+
+                        # 4. Doanh thu và lợi nhuận gộp (X_9, X_10, X_11)
+                        stressed_ratios['X_9'] *= (1 + scenario_params['revenue_profit'] / 100)
+                        stressed_ratios['X_10'] *= (1 + scenario_params['revenue_profit'] / 100)
+                        stressed_ratios['X_11'] *= (1 + scenario_params['revenue_profit'] / 100)
+
+                        # 5. Chi phí lãi vay ảnh hưởng đến Net Profit Margin (X_11)
+                        stressed_ratios['X_11'] *= (1 - scenario_params['interest'] / 100)
+
+                        # Dự báo PD mới
+                        X_stressed = pd.DataFrame([stressed_ratios])
+                        probs_stressed = model.predict_proba(X_stressed)[0][1]
+                        pd_classification_stressed = classify_pd(probs_stressed)
+
+                        # Hiển thị kết quả
+                        st.markdown("### 4️⃣ Kết quả mô phỏng")
+
+                        # So sánh PD
+                        col1, col2, col3 = st.columns(3)
+                        with col1:
+                            st.metric(
+                                "PD sau kịch bản xấu",
+                                f"{probs_stressed:.2%}",
+                                delta=f"{(probs_stressed - probs_original):.2%}",
+                                delta_color="inverse"
+                            )
+                        with col2:
+                            st.metric(
+                                "Rating sau kịch bản",
+                                pd_classification_stressed['rating'],
+                                delta=f"Từ {pd_classification_original['rating']}"
+                            )
+                        with col3:
+                            st.metric(
+                                "Phân loại mới",
+                                pd_classification_stressed['classification']
+                            )
+
+                        # Biểu đồ so sánh
+                        st.markdown("#### 📊 So sánh PD trước và sau kịch bản")
+
+                        fig, ax = plt.subplots(figsize=(10, 6))
+                        categories = ['PD gốc', f'PD sau\n({scenario_type})']
+                        values = [probs_original * 100, probs_stressed * 100]
+                        colors = [pd_classification_original['color'], pd_classification_stressed['color']]
+
+                        bars = ax.bar(categories, values, color=colors, alpha=0.7, edgecolor='black', linewidth=2)
+
+                        # Thêm giá trị lên thanh
+                        for bar, val in zip(bars, values):
+                            height = bar.get_height()
+                            ax.text(bar.get_x() + bar.get_width()/2., height,
+                                   f'{val:.2f}%',
+                                   ha='center', va='bottom', fontweight='bold', fontsize=12)
+
+                        ax.set_ylabel('Xác suất vỡ nợ (%)', fontsize=12, fontweight='bold')
+                        ax.set_title(f'So sánh PD - Kịch bản: {scenario_type}', fontsize=14, fontweight='bold')
+                        ax.grid(axis='y', alpha=0.3, linestyle='--')
+
+                        # Thêm ngưỡng cảnh báo
+                        ax.axhline(y=10, color='orange', linestyle='--', linewidth=2, alpha=0.5, label='Ngưỡng cảnh báo (10%)')
+                        ax.axhline(y=20, color='red', linestyle='--', linewidth=2, alpha=0.5, label='Ngưỡng rủi ro cao (20%)')
+                        ax.legend()
+
+                        st.pyplot(fig)
+                        plt.close()
+
+                        # Mô tả tác động
+                        st.markdown("#### 📝 Mô tả tác động")
+
+                        pd_change = probs_stressed - probs_original
+                        pd_change_pct = (pd_change / probs_original * 100) if probs_original > 0 else 0
+
+                        if pd_change > 0.1:
+                            impact_level = "🔴 **RẤT NGHIÊM TRỌNG**"
+                        elif pd_change > 0.05:
+                            impact_level = "🟠 **NGHIÊM TRỌNG**"
+                        elif pd_change > 0.02:
+                            impact_level = "🟡 **VỪA PHẢI**"
+                        else:
+                            impact_level = "🟢 **NHẸ**"
+
+                        st.markdown(f"""
+                        **Mức độ tác động:** {impact_level}
+
+                        - **PD tăng thêm:** {pd_change:.2%} ({pd_change_pct:+.1f}%)
+                        - **Rating thay đổi:** {pd_classification_original['rating']} → {pd_classification_stressed['rating']}
+                        - **Phân loại:** {pd_classification_original['classification']} → {pd_classification_stressed['classification']}
+
+                        **Diễn giải:**
+                        Trong kịch bản **{scenario_type}**, doanh nghiệp có khả năng vỡ nợ tăng từ **{probs_original:.2%}** lên **{probs_stressed:.2%}**.
+                        Điều này cho thấy doanh nghiệp có mức độ nhạy cảm {'cao' if pd_change > 0.05 else 'trung bình' if pd_change > 0.02 else 'thấp'} với các cú sốc kinh tế.
+                        """)
+
+                        st.divider()
+
+                        # 4. Phân tích AI chuyên sâu
+                        st.markdown("### 5️⃣ Phân tích AI chuyên sâu")
+
+                        if st.button("🤖 Yêu cầu Gemini phân tích tác động", type="primary"):
+                            api_key = st.secrets.get("GEMINI_API_KEY")
+
+                            if api_key:
+                                with st.spinner("Gemini AI đang phân tích..."):
+                                    # Chuẩn bị dữ liệu cho AI
+                                    ai_data = {
+                                        "scenario_type": scenario_type,
+                                        "scenario_params": scenario_params,
+                                        "pd_original": f"{probs_original:.2%}",
+                                        "pd_stressed": f"{probs_stressed:.2%}",
+                                        "pd_change": f"{pd_change:.2%}",
+                                        "rating_original": pd_classification_original['rating'],
+                                        "rating_stressed": pd_classification_stressed['rating'],
+                                        "original_ratios": {ratio_names[k]: f"{v:.4f}" for k, v in original_ratios.items()},
+                                        "stressed_ratios": {ratio_names[k]: f"{v:.4f}" for k, v in stressed_ratios.items()}
+                                    }
+
+                                    # Gọi Gemini với prompt đặc biệt
+                                    client = genai.Client(api_key=api_key)
+
+                                    sys_prompt = """Bạn là chuyên gia phân tích rủi ro tín dụng và stress testing tại ngân hàng Việt Nam.
+                                    Nhiệm vụ của bạn là phân tích tác động của kịch bản xấu đến khả năng thanh toán của doanh nghiệp
+                                    và đưa ra khuyến nghị cho ngân hàng về quyết định cho vay trong bối cảnh này."""
+
+                                    user_prompt = f"""
+                                    Hãy phân tích chi tiết tác động của kịch bản xấu đến doanh nghiệp này:
+
+                                    {str(ai_data)}
+
+                                    Yêu cầu phân tích:
+                                    1. **Đánh giá mức độ rủi ro**: Phân tích sự thay đổi PD và ý nghĩa của nó
+                                    2. **Tác động đến doanh nghiệp**:
+                                       - Các chỉ số tài chính bị ảnh hưởng nhiều nhất
+                                       - Khả năng chống chịu của doanh nghiệp
+                                       - Điểm mạnh và điểm yếu trong kịch bản xấu
+                                    3. **Tác động đến ngân hàng nếu cho vay**:
+                                       - Rủi ro tín dụng gia tăng
+                                       - Khả năng thu hồi nợ
+                                       - Biện pháp giảm thiểu rủi ro
+                                    4. **Khuyến nghị cụ thể**:
+                                       - Có nên cho vay hay không trong bối cảnh hiện tại?
+                                       - Nếu cho vay, cần điều kiện gì? (tài sản đảm bảo, lãi suất, kỳ hạn...)
+                                       - Các biện pháp theo dõi và kiểm soát
+
+                                    Trả lời bằng tiếng Việt, chuyên nghiệp, súc tích.
+                                    Kết thúc bằng khuyến nghị cuối cùng in hoa: CHO VAY hoặc KHÔNG CHO VAY hoặc CHO VAY CÓ ĐIỀU KIỆN.
+                                    """
+
+                                    try:
+                                        response = client.models.generate_content(
+                                            model=MODEL_NAME,
+                                            contents=[{"role": "user", "parts": [{"text": sys_prompt + "\n\n" + user_prompt}]}],
+                                            config={"system_instruction": sys_prompt}
+                                        )
+
+                                        ai_analysis = response.text
+
+                                        st.markdown("#### 🧠 Phân tích từ Gemini AI")
+
+                                        if "KHÔNG CHO VAY" in ai_analysis.upper() and "CÓ ĐIỀU KIỆN" not in ai_analysis.upper():
+                                            st.error("🚨 **KHUYẾN NGHỊ: KHÔNG CHO VAY**")
+                                        elif "CHO VAY CÓ ĐIỀU KIỆN" in ai_analysis.upper():
+                                            st.warning("⚠️ **KHUYẾN NGHỊ: CHO VAY CÓ ĐIỀU KIỆN**")
+                                        elif "CHO VAY" in ai_analysis.upper():
+                                            st.success("✅ **KHUYẾN NGHỊ: CHO VAY**")
+
+                                        st.info(ai_analysis)
+
+                                    except Exception as e:
+                                        st.error(f"❌ Lỗi khi gọi Gemini AI: {str(e)}")
+                            else:
+                                st.error("❌ Không tìm thấy API key. Vui lòng cấu hình 'GEMINI_API_KEY' trong Secrets.")
+
+        except Exception as e:
+            st.error(f"❌ Lỗi khi xử lý file: {str(e)}")
+            st.exception(e)
+
+    else:
+        st.info("📁 Vui lòng tải file Excel chứa 14 chỉ số tài chính để bắt đầu mô phỏng kịch bản xấu.")
 
 # ========================================
 # TAB: DASHBOARD TÀI CHÍNH DOANH NGHIỆP
