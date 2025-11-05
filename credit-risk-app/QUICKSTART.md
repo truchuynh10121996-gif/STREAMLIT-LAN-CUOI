@@ -1,6 +1,35 @@
 # 🚀 HƯỚNG DẪN CHẠY NHANH
 
-## Bước 1: Cài đặt Backend
+## 🎯 CÁCH NHANH NHẤT (Khuyến nghị)
+
+### Linux / macOS:
+
+```bash
+cd credit-risk-app
+./start.sh
+```
+
+### Windows:
+
+```bash
+cd credit-risk-app
+start.bat
+```
+
+Script sẽ tự động:
+- Tạo virtual environment cho Python
+- Cài đặt tất cả dependencies (backend + frontend)
+- Chạy Backend tại http://localhost:8000
+- Chạy Frontend tại http://localhost:3000
+- Mở trình duyệt
+
+**Nhấn Ctrl+C để dừng tất cả service**
+
+---
+
+## 📝 CÁCH CHẠY THỦ CÔNG
+
+### Bước 1: Cài đặt Backend
 
 Mở Terminal 1 trong VS Code:
 
@@ -16,7 +45,7 @@ python main.py
 
 ✅ Backend chạy tại: **http://localhost:8000**
 
-## Bước 2: Cài đặt Frontend
+### Bước 2: Cài đặt Frontend
 
 Mở Terminal 2 trong VS Code:
 
@@ -32,7 +61,7 @@ npm run dev
 
 ✅ Frontend chạy tại: **http://localhost:3000**
 
-## Bước 3: Truy cập ứng dụng
+### Bước 3: Truy cập ứng dụng
 
 Mở trình duyệt: **http://localhost:3000**
 

@@ -16,6 +16,13 @@ frontend/dist/
 frontend/.DS_Store
 frontend/coverage/
 frontend/.vscode/
+frontend/.env
+frontend/.env.local
+
+# Logs
+*.log
+backend.log
+frontend.log
 
 # IDEs
 .idea/

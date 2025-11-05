@@ -21,12 +21,24 @@ app = FastAPI(
 )
 
 # Cấu hình CORS để frontend Vue có thể gọi API
+# Development: cho phép localhost:3000 (frontend Vue)
+# Production: thay đổi origins theo domain thật
+origins = [
+    "http://localhost:3000",      # Vue dev server
+    "http://localhost:5173",      # Vite alternative port
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:5173",
+    # Thêm domain production khi deploy:
+    # "https://yourdomain.com"
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Trong production nên chỉ định cụ thể domain
+    allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allow_headers=["*"],
+    expose_headers=["*"],
 )
 
 
