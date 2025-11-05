@@ -1,0 +1,93 @@
+credit-risk-app/
+│
+├── 📁 backend/                      FastAPI Backend
+│   ├── main.py                      API Endpoints (✅ CORS đã cấu hình)
+│   ├── model.py                     Stacking Classifier
+│   ├── gemini_api.py                Gemini AI Integration
+│   ├── requirements.txt             Python Dependencies
+│   └── .env.example                 Environment Variables Template
+│
+├── 📁 frontend/                     Vue 3 Frontend
+│   ├── 📁 src/
+│   │   ├── App.vue                  Main Component (✅ API gọi đúng)
+│   │   ├── main.js                  Entry Point
+│   │   ├── style.css                Pastel Theme CSS
+│   │   └── 📁 components/
+│   │       └── RiskChart.vue        Chart Component
+│   ├── index.html                   HTML Template
+│   ├── package.json                 NPM Dependencies
+│   ├── vite.config.js               Vite Config
+│   └── .env                         API Config
+│
+├── 📄 Documentation
+│   ├── README.md                    Hướng dẫn đầy đủ
+│   ├── QUICKSTART.md                Hướng dẫn chạy nhanh
+│   ├── TEST_CORS.md                 Test & Debug CORS
+│   ├── CORS_EXPLAINED.md            Giải thích CORS
+│   ├── CORS_SUMMARY.txt             Tóm tắt CORS
+│   └── PROJECT_STRUCTURE.txt        File này
+│
+├── 🚀 Scripts
+│   ├── start.sh                     Start script (Linux/macOS)
+│   └── start.bat                    Start script (Windows)
+│
+├── 📊 Data
+│   └── DATASET.csv                  Sample training data
+│
+└── .gitignore                       Git ignore rules
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 TỔNG SỐ FILES:
+- Backend Python: 4 files
+- Frontend Vue: 7 files
+- Documentation: 6 files
+- Scripts: 2 files
+- Data: 1 file
+- Config: 2 files
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 CÁC FILE QUAN TRỌNG:
+
+CORS Configuration:
+    ✅ backend/main.py              (CORS Middleware)
+    ✅ frontend/src/App.vue         (API Base URL)
+
+Quick Start:
+    📖 QUICKSTART.md                (Bắt đầu nhanh)
+    🚀 start.sh / start.bat         (Auto start)
+
+Debug:
+    🐛 TEST_CORS.md                 (Test CORS)
+    📚 CORS_EXPLAINED.md            (Hiểu về CORS)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔗 LUỒNG DỮ LIỆU:
+
+User (Browser)
+    ↓ http://localhost:3000
+Vue Frontend
+    ↓ API Call (Axios)
+    ↓ http://localhost:8000
+FastAPI Backend (✅ CORS OK)
+    ↓ Process
+    ├─→ Stacking Model (Predict PD)
+    └─→ Gemini AI (Analyze)
+    ↓ JSON Response
+Vue Frontend
+    ↓ Display
+User (Browser)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ CORS ĐÃ ĐƯỢC CẤU HÌNH ĐẦY ĐỦ!
+
+Chỉ cần chạy:
+    ./start.sh        (Linux/macOS)
+    start.bat         (Windows)
+
+Hoặc:
+    Terminal 1: cd backend && python main.py
+    Terminal 2: cd frontend && npm run dev

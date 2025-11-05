@@ -1,0 +1,36 @@
+# Backend Python
+backend/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/*.pyd
+backend/.Python
+backend/venv/
+backend/env/
+backend/.venv
+backend/*.pkl
+backend/.env
+
+# Frontend Node
+frontend/node_modules/
+frontend/dist/
+frontend/.DS_Store
+frontend/coverage/
+frontend/.vscode/
+frontend/.env
+frontend/.env.local
+
+# Logs
+*.log
+backend.log
+frontend.log
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
